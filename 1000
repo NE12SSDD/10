@@ -1,0 +1,79 @@
+#include <iostream>
+#include <cmath>
+
+// Модуль для операцій з часом
+namespace TimeModule {
+    typedef int TTime;
+
+    // Процедура зміни часу на -1 секунду
+    void PrevSec(TTime& time) {
+        if (time > 0) {
+            --time;
+        }
+    }
+}
+
+// Модуль для операцій з окружностями
+namespace CircleModule {
+    struct CircleData {
+        double diameter; // діаметр окружності
+        double length;   // довжина окружності
+    };
+
+    // Функція обчислення довжини окружності за діаметром
+    void calculateLength(CircleData& data) {
+        data.length = M_PI * data.diameter;
+    }
+}
+
+// Модуль для розв'язання квадратного рівняння
+namespace QuadraticEquationModule {
+    // Функція перевірки наявності дійсних коренів квадратного рівняння
+    bool hasRealRoots(double A, double B, double C) {
+        double discriminant = B * B - 4 * A * C;
+        return discriminant >= 0;
+    }
+}
+
+int main() {
+    using namespace TimeModule;
+    using namespace CircleModule;
+    using namespace QuadraticEquationModule;
+
+    // Задані моменти часу
+    TTime time1 = 3600; // 1 година
+    TTime time2 = 7200; // 2 години
+    TTime time3 = 86399; // 23 години, 59 хвилин, 59 секунд
+    TTime time4 = 0; // Півночі
+    TTime time5 = -1; // Неправильний час
+
+    // Застосовуємо процедуру PrevSec до п'яти заданих моментів часу
+    PrevSec(time1);
+    PrevSec(time2);
+    PrevSec(time3);
+    PrevSec(time4);
+    PrevSec(time5);
+
+    // Вивід змінених значень часу
+    std::cout << "Modified Time 1: " << time1 << std::endl;
+    std::cout << "Modified Time 2: " << time2 << std::endl;
+    std::cout << "Modified Time 3: " << time3 << std::endl;
+    std::cout << "Modified Time 4: " << time4 << std::endl;
+    std::cout << "Modified Time 5: " << time5 << std::endl;
+
+    // Розрахунок довжини окружності
+    CircleData circle;
+    circle.diameter = 10; // приклад значення діаметра
+    calculateLength(circle);
+    std::cout << "Length of the circle: " << circle.length << std::endl;
+
+    // Перевірка наявності дійсних коренів квадратного рівняння
+    double A = 1, B = 2, C = 1; // приклад коефіцієнтів квадратного рівняння
+    if (hasRealRoots(A, B, C)) {
+        std::cout << "The quadratic equation has real roots." << std::endl;
+    } else {
+        std::cout << "The quadratic equation does not have real roots." << std::endl;
+    }
+
+    return 0;
+}
