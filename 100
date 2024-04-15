@@ -1,0 +1,45 @@
+#include <iostream>
+#include <cmath>
+
+struct CircleData {
+    double diameter; // вхідний параметр: діаметр окружності
+    double length;   // вихідний параметр: довжина окружності
+};
+
+void processCircle(CircleData& data) {
+    data.length = M_PI * data.diameter; // обчислюємо довжину окружності
+}
+
+bool checkAndFill(double A, double B, double C, CircleData& data) {
+    if (A != 0) { // перевіряємо, що A не дорівнює 0
+        double discriminant = B * B - 4 * A * C; // обчислюємо дискримінант
+
+        if (discriminant >= 0) { // перевіряємо, чи існують дійсні корені
+            data.diameter = sqrt(discriminant); // користуємося дискримінантом для заповнення діаметра
+            return true; // повертаємо true, якщо у рівняння є дійсні корені
+        }
+    }
+    return false; // повертаємо false, якщо у рівняння немає дійсних коренів
+}
+
+int main() {
+    CircleData circle; // оголошуємо об'єкт структури CircleData
+
+    // Викликаємо функцію для перевірки і заповнення вхідних даних
+    bool hasRealRoots = checkAndFill(1, 2, 1, circle);
+
+    // Викликаємо функцію для обробки структури
+    if (hasRealRoots) {
+        processCircle(circle);
+    }
+
+    // Виводимо значення вихідних даних
+    if (hasRealRoots) {
+        std::cout << "Діаметр окружності: " << circle.diameter << std::endl;
+        std::cout << "Довжина окружності: " << circle.length << std::endl;
+    } else {
+        std::cout << "Рівняння не має дійсних коренів." << std::endl;
+    }
+
+    return 0;
+}
